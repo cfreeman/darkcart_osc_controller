@@ -25,5 +25,6 @@ import (
 
 func main() {
 	fmt.Printf("Starting DarkCart OSC Controller")
+
 	oscServer()
 }

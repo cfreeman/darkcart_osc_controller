@@ -31,7 +31,6 @@ func oscServer() error {
 		if err != nil {
 			fmt.Printf("Unable to parse position argument.")
 			return
-			// TODO: BZZT. Invalid position argument.
 		}
 
 		fmt.Printf("Position: %f\n", p)
@@ -43,7 +42,6 @@ func oscServer() error {
 		if err != nil {
 			fmt.Printf("Unable to parse height argument.")
 			return
-			// TODO: BZZT. Invalid height argument.
 		}
 
 		fmt.Printf("Height: %f\n", h)
@@ -55,7 +53,6 @@ func oscServer() error {
 		if err != nil {
 			fmt.Printf("Unable to parse sequence to trigger.")
 			return
-			// TODO: BZZT. Invalid height argument.
 		}
 
 		fmt.Printf("Sequence: %d\n", s)
