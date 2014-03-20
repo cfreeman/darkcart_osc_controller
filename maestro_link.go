@@ -19,18 +19,6 @@
 
 package main
 
-import (
-	"fmt"
-)
-
-func main() {
-	fmt.Printf("Starting DarkCart OSC Controller")
-
-	position := make(chan float32)
-	height := make(chan float32)
-	sequence := make(chan int32)
-
-	go oscServer(position, height, sequence)
-	go maestroLink(sequence)
-	arduinoLink(position, height)
+func maestroLink(sequence chan int32) {
+	// TODO implement link to pololu micro maestro.
 }

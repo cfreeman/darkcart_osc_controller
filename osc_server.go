@@ -25,7 +25,7 @@ import (
 	"fmt"
 )
 
-func oscServer() error {
+func oscServer(position chan float32, height chan float32, sequence chan int32) error {
 	osc.HandleFunc("/position", func(msg *osc.Message) {
 		p, err := parseFloatArg(msg.Args[0])
 		if err != nil {
@@ -34,7 +34,7 @@ func oscServer() error {
 		}
 
 		fmt.Printf("Position: %f\n", p)
-		// TODO: Push the position argument into the stepper controller.
+		position <- p
 	})
 
 	osc.HandleFunc("/height", func(msg *osc.Message) {
@@ -45,7 +45,7 @@ func oscServer() error {
 		}
 
 		fmt.Printf("Height: %f\n", h)
-		// TODO: Push the height argument into the linear actuator.
+		height <- h
 	})
 
 	osc.HandleFunc("/sequence", func(msg *osc.Message) {
@@ -56,7 +56,7 @@ func oscServer() error {
 		}
 
 		fmt.Printf("Sequence: %d\n", s)
-		// TODO: Push the sequence into the mini maestro.
+		sequence <- s
 	})
 
 	return osc.ListenAndServeUDP(":8000", nil)
