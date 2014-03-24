@@ -29,7 +29,7 @@ func oscServer(position chan float32, height chan float32, sequence chan int32) 
 	osc.HandleFunc("/position", func(msg *osc.Message) {
 		p, err := parseFloatArg(msg.Args[0])
 		if err != nil {
-			fmt.Printf("Unable to parse position argument.")
+			fmt.Printf("Unable to parse position argument.\n")
 			return
 		}
 
@@ -40,7 +40,7 @@ func oscServer(position chan float32, height chan float32, sequence chan int32) 
 	osc.HandleFunc("/height", func(msg *osc.Message) {
 		h, err := parseFloatArg(msg.Args[0])
 		if err != nil {
-			fmt.Printf("Unable to parse height argument.")
+			fmt.Printf("Unable to parse height argument\n")
 			return
 		}
 
@@ -51,7 +51,7 @@ func oscServer(position chan float32, height chan float32, sequence chan int32) 
 	osc.HandleFunc("/sequence", func(msg *osc.Message) {
 		s, err := parseIntArg(msg.Args[0])
 		if err != nil {
-			fmt.Printf("Unable to parse sequence to trigger.")
+			fmt.Printf("Unable to parse sequence to trigger.\n")
 			return
 		}
 

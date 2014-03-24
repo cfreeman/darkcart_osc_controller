@@ -19,6 +19,33 @@
 
 package main
 
+import (
+	"fmt"
+	"github.com/stianeikeland/go-rpio"
+	"time"
+)
+
 func maestroLink(sequence chan int32) {
-	// TODO implement link to pololu micro maestro.
+	err := rpio.Open()
+	if err != nil {
+		fmt.Printf("Unable to open IO ports on the Raspberry PI.\n")
+	}
+
+	for {
+		// Initially, we just reset the maestro for any sequence.
+		<-sequence
+
+		// Pulse the rst pin on the maestro for 5 milliseconds to reset.
+		pin := rpio.Pin(17)
+		pin.Output()
+		pin.High()
+		time.Sleep(5 * time.Millisecond)
+		pin.Low()
+
+		// TODO: Connect to maestro over serial and trigger a specific animation
+		// sequence stored on the device.
+	}
+
+	// Never reached. Here for completness. Clean up the memory used by the GPIO ports.
+	rpio.Close()
 }

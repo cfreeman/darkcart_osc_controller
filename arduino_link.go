@@ -36,7 +36,7 @@ func arduinoLink(position chan float32, height chan float32) {
 	c := &goserial.Config{Name: findArduino(), Baud: 9600}
 	s, err := goserial.OpenPort(c)
 	if err != nil {
-		fmt.Printf("Unable to find arduino.")
+		fmt.Printf("Unable to find arduino.\n")
 		return
 	}
 
