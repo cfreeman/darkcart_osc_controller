@@ -24,7 +24,7 @@ import (
 )
 
 func main() {
-	fmt.Printf("Starting DarkCart OSC Controller")
+	fmt.Printf("Starting DarkCart OSC Controller\n")
 
 	position := make(chan float32)
 	height := make(chan float32)
