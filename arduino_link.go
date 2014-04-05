@@ -27,6 +27,7 @@ import (
 	"io"
 	"io/ioutil"
 	"strings"
+	"time"
 )
 
 // arduinoLink makes a link to the arduino so that commands can be transmitted down the serial line to
@@ -35,6 +36,10 @@ func arduinoLink(position chan float32, height chan float32) {
 	// Find the device that represents the arduino serial connection.
 	c := &goserial.Config{Name: findArduino(), Baud: 9600}
 	s, err := goserial.OpenPort(c)
+
+	// When connecting to an older revision arduino, you need to wait a little while it resets.
+	time.Sleep(1 * time.Second)
+
 	if err != nil {
 		fmt.Printf("Unable to find arduino.\n")
 		return
@@ -84,6 +89,7 @@ func findArduino() string {
 	// Look for the arduino device
 	for _, f := range contents {
 		if strings.Contains(f.Name(), "tty.usbserial") ||
+			strings.Contains(f.Name(), "tty.usbmodem") ||
 			strings.Contains(f.Name(), "ttyUSB") ||
 			strings.Contains(f.Name(), "ttyACM") {
 			return "/dev/" + f.Name()
