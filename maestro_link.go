@@ -26,22 +26,20 @@ import (
 
 func maestroLink(sequence chan int32) {
 	err := rpio.Open()
+	pin := rpio.Pin(17)
+	pin.Output()
+
 	if err != nil {
 		fmt.Printf("Unable to open IO ports on the Raspberry PI.\n")
 	}
 
 	for {
-		// Pulse the rst pin on the maestro for 5 milliseconds to reset.
-		pin := rpio.Pin(17)
-		pin.Output()
-
-		// Initially, we just reset the maestro for any sequence.
 		s := <-sequence
 		switch s {
 		default:
-			pin.High()
-		case 1:
 			pin.Low()
+		case 1:
+			pin.High()
 		}
 
 		// TODO: Connect to maestro over serial and trigger a specific animation
